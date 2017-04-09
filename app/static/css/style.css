@@ -1,0 +1,12 @@
+.error {
+  color: red;
+}
+
+.nav-collapse .collapse
+  li {
+    list-style-type: none;
+  }
+
+li {
+  list-style-type: none;
+}

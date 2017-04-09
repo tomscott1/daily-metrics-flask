@@ -6,14 +6,36 @@
     <title>Daily metrics</title>
     {% endif %}
     <!-- Include bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/style.css">
   </head>
   <body>
-    <div>
-      <h3>Welcome, {{ user.name }} </h3>
-      <a href='/index'>Home</a>
-    </div>
-    <hr>
+    <nav class='navbar navbar-default'>
+      <div class='container-fluid'>
+        <div class='navbar-header'>
+          <a href='/' class='navbar-brand'>Daily Metrics</a>
+        </div>
+        <div class='collapse navbar-collapse'>
+          <ul clas='nav navbar-nav navbar-right'>
+          {% if logged_in %}
+            <li class='nav-label'>
+              <p class='navbar-text'>Welcome, {{ user.name }}</p>
+            </li>
+            <li class='nav-item'>
+              <a href=# class='nav-link'>Sign out</a>
+            </li>
+          {% else %}
+            <li class='nav-label'>
+              <p class='navbar-text'>Welcome to Daily metrics</p>
+            </li>
+            <li><a href='/login' class='nav-link'>Login</a></li>
+            <li><a href=# class='nav-link'>Register</a></li>
+          {% endif %}
+        </ul>
+        </div>
+      </div>
+    </nav>
+
     {% block content %}{% endblock %}
   </body>
 </html>

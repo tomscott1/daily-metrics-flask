@@ -16,7 +16,7 @@
           <a href='/' class='navbar-brand'>Daily Metrics</a>
         </div>
         <div class='collapse navbar-collapse'>
-          <ul clas='nav navbar-nav navbar-right'>
+          <ul class='nav navbar-nav navbar-right'>
           {% if logged_in %}
             <li class='nav-label'>
               <p class='navbar-text'>Welcome, {{ user.name }}</p>
@@ -25,9 +25,6 @@
               <a href=# class='nav-link'>Sign out</a>
             </li>
           {% else %}
-            <li class='nav-label'>
-              <p class='navbar-text'>Welcome to Daily metrics</p>
-            </li>
             <li><a href='/login' class='nav-link'>Login</a></li>
             <li><a href=# class='nav-link'>Register</a></li>
           {% endif %}

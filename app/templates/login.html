@@ -1,14 +1,23 @@
 <!-- extend from header -->
 {% extends 'header.html' %}
 {% block content %}
-  <h3> Sign in<h3>
-  <form action='' method='post' name='login'>
-    {{ form.hidden_tag() }}
-    <p>
-      Please enter you OpenId:<br>
-      {{ form.openid(size=80) }}</br>
-    </p>
-    <p>{{ form.remember_me }} Remember Me</p>
-    <p><input type='submit' value='Sign In'></p>
-  </form>
+  <div class='container-fluid'>
+    <h3>Sign in</h3>
+    <div class='jumbotron' background-position='center'>
+      <form class='form-horizontal' action='' method='post' name='login' width='50%'>
+        {{ form.hidden_tag() }}
+          Please enter your OpenId:
+          {{ form.openid(class_='form-control', placeholder='Open Id') }}
+          {{ form.remember_me }} Remember Me
+          {{ form.email(class_='form-control', placeholder='Email address', autofocus=True) }}
+          {{ form.password(class_='form-control', placeholder='Password') }}
+        <!-- <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="email" name="inputEmail" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="Password" required>
+        <button id="btnSignIn" class="btn btn-lg btn-primary btn-block" type="submit" value='Sign In'>Sign in</button> -->
+        <input type='submit' class='btn btn-lg btn-primary btn-block' value='Sign In'>
+      </form>
+    </div>
+  </div>
 {% endblock %}

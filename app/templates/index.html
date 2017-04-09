@@ -1,0 +1,9 @@
+{% extends 'header.html' %}
+{% block content %}
+  {% for metric in metrics %}
+  <div>
+    <p><h4>{{ metric.name }}</h4></p>
+    <p>{{ metric.text }}</p>
+  </div>
+  {% endfor %}
+{% endblock %}

@@ -1,1 +1,0 @@
-/Users/tomscott/miniconda/lib/python2.7/_weakrefset.py

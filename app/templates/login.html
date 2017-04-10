@@ -1,10 +1,10 @@
 <!-- extend from header -->
 {% extends 'header.html' %}
 {% block content %}
-  <div class='container-fluid'>
+  <div class='container' width='500px'>
     <h3>Sign in</h3>
-    <div class='jumbotron' background-position='center'>
-      <form class='form-horizontal' action='' method='post' name='login' width='50%'>
+    <div class='jumbotron' background-position='center' padding-right='100px' padding-left=100px>
+      <form class='form-signin' action='' method='post' name='login'>
         {{ form.hidden_tag() }}
         {{ form.csrf_token }}
         {{ form.email(class_='form-control', placeholder='Email address', autofocus=True) }}

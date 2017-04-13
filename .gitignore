@@ -3,3 +3,6 @@ flask
 *.pyc
 *.pyo
 config.py
+db_repository/
+tmp/
+app.db

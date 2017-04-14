@@ -12,7 +12,7 @@ class Metric(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('User.id'), index=True)
     name = db.Column(db.String(64))
-    # metric_type = db.Column(db.Integer)
+    is_bool = db.Column(db.Boolean)
     max_val = db.Column(db.Integer)
     min_val = db.Column(db.Integer)
     increment = db.Column(db.Integer)

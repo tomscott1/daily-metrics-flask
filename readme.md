@@ -1,2 +1,2 @@
 ## daily metrics app ##
-using flask
+using flask and sqlite

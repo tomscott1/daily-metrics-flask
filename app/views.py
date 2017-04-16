@@ -1,7 +1,8 @@
-from flask import render_template, flash, redirect, session, url_for, request, g
+from flask import render_template, flash, redirect, session, url_for
+from flask import request, g
 from flask_login import login_user, logout_user, current_user, login_required
 from app import app, login_manager, db, bcrypt
-from .forms import LoginForm
+from .forms import LoginForm, RegisterForm
 from .models import User, Metric, Record
 
 
@@ -31,11 +32,10 @@ def index():
         }
     ]
     return render_template('index.html', title='Home', user=user,
-                           metrics=metrics)
+                           metrics=metrics, logged_in=g.user.is_authenticated)
 
 
 @app.route('/login', methods=['GET', 'POST'])
-# potentially need to tell login_manager this is the login function....
 def login():
     if g.user is not None and g.user.is_authenticated:
         return redirect(url_for('index'))
@@ -52,21 +52,30 @@ def login():
                     session.pop('remember_me', None)
                 login_user(user, remember=remember_me)
                 flash('Logged in successfully.')
-                # next = flask.request.args.get('next')
-                # if not is_safe_url(next):
-                    # return flask.abort(400)
                 return redirect(request.args.get('next') or url_for('index'))
             flash('Email or Password incorrect - try again')
             return redirect(url_for('login'))
     return render_template('login.html', title='Sign in', form=form)
 
 
-@app.route('/logout', methods=["GET"])
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    form = RegisterForm()
+    if form.validate_on_submit():
+        if not db.session.query(db.exists().where(
+                User.email == form.email.data)).scalar():
+            new_user = User(email=form.email.data,
+                                   password=form.password.data)
+            db.session.add(new_user)
+            db.session.commit()
+            flash('user registered')
+            return redirect(request.args.get('next') or url_for('index'))
+        flash('Email already exists - please choose another email')
+        return redirect(url_for('register'))
+    return render_template('register.html', title='Register', form=form)
+
+@app.route('/logout', methods=['GET'])
 @login_required
 def logout():
-    user = current_user
-    user.authenticated = False
-    db.session.add(user)
-    db.session.commit()
     logout_user()
     return redirect(url_for('index'))

@@ -1,0 +1,22 @@
+<!-- extend from header -->
+{% extends 'header.html' %}
+{% block content %}
+  <div class='container' width='500px'>
+    <h3>Register User</h3>
+    <div class='jumbotron' background-position='center' padding-right='100px' padding-left=100px>
+      <form class='form-signin' action='' method='post' name='login'>
+        {{ form.hidden_tag() }}
+        {{ form.csrf_token }}
+        {{ form.email(class_='form-control', placeholder='Email address', autofocus=True) }}
+        {% for error in form.email.errors %}
+          <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+        {{ form.password(class_='form-control', placeholder='Password') }}
+        {% for error in form.password.errors %}
+          <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+        <input type='submit' class='btn btn-lg btn-primary btn-block' value='Sign In'>
+      </form>
+    </div>
+  </div>
+{% endblock %}

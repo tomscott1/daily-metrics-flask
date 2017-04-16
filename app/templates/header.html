@@ -19,14 +19,14 @@
           <ul class='nav navbar-nav navbar-right'>
           {% if logged_in %}
             <li class='nav-label'>
-              <p class='navbar-text'>Welcome, {{ user.name }}</p>
+              <p class='navbar-text'>Welcome, {{ user.email }}</p>
             </li>
             <li class='nav-item'>
               <a href='/logout' class='nav-link'>Sign out</a>
             </li>
           {% else %}
             <li><a href='/login' class='nav-link'>Login</a></li>
-            <li><a href=# class='nav-link'>Register</a></li>
+            <li><a href='/register' class='nav-link'>Register</a></li>
           {% endif %}
         </ul>
         </div>

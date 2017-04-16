@@ -33,7 +33,7 @@ class User(db.Model):
         return False
 
     def __repr__(self):
-        return '<User %r>' % (self.nickname)
+        return '<User %r>' % (self.email)
 
 
 

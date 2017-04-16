@@ -1,17 +1,21 @@
-from app import db
+from app import db, bcrypt
 from werkzeug import generate_password_hash, check_password_hash
+from sqlalchemy.ext.hybrid import hybrid_property
+
 
 class User(db.Model):
 
-    def __repr__(self):
-        return '<User %r>' % (self.nickname)
-
     id = db.Column(db.Integer, primary_key=True)
-    nickname = db.Column(db.String(64), index=True, unique=True)
-    email = db.Column(db.String(120), index=True, unique=True, nullabl=F)
+    email = db.Column(db.String(120), index=True, unique=True, nullable=False)
+    _password = db.Column(db.String(128))
 
-    # password
-    _password = db.Column('password', db.String(120), nullable=False)
+    @hybrid_property
+    def password(self):
+        return self._password
+
+    @password.setter
+    def _set_password(self, plaintext):
+        self._password = bcrypt.generate_password_hash(plaintext)
 
     def is_active(self):
         return True
@@ -28,33 +32,8 @@ class User(db.Model):
     def is_anonymous(self):
         return False
 
-    def _get_password(self):
-        return self._password
-
-    def _set_password(self, password):
-        self._password = generate_password_hash(password)
-
-    password = db.synonym('_password', description=property(_get_password, _set_password))
-
-    def check_password(self, password):
-        if self.password is None:
-            return False
-        return check_password_hash(self.password, password)
-
-    # methods
-    @classmethod
-    def authenticate(cls, email, password):
-        user = User.query.filter(db.or_(User.email == email)).first()
-
-        if user:
-            is_authenticated = user.check_password(password)
-        else:
-            is_authenticated = False
-        return user, is_authenticated
-
-    @classmethod
-    def is_email_taken(cls, email_address):
-        return db.session.query(db.exists().where(USer.email == email_address)).scalar()
+    def __repr__(self):
+        return '<User %r>' % (self.nickname)
 
 
 

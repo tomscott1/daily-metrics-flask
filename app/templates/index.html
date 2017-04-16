@@ -1,9 +1,11 @@
 {% extends 'header.html' %}
 {% block content %}
-  {% for metric in metrics %}
+  <!-- {% for metric in metrics %} -->
   <div class='container'>
-    <p><h4>{{ metric.name }}</h4></p>
-    <p>{{ metric.text }}</p>
+    <div class='jumbotron'>
+      <p><h3>Daily metrics</h3></p>
+      <p>Sign up to record your metrics or login to view your existing metrics</p>
+    </div>
   </div>
-  {% endfor %}
+  <!-- {% endfor %} -->
 {% endblock %}

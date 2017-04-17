@@ -12,7 +12,9 @@
           <h3 class="panel-title">{{ metric.name }}</h3>
         </div>
         <div class="panel-body">
-          Metric info...
+          {% for record in records %}
+            {{ record }}
+          {% endfor %}
         </div>
       </div>
       {% endfor %}

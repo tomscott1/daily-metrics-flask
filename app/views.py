@@ -71,8 +71,13 @@ def register():
 def home():
     # get metrics for user
     metrics = db.session.query(Metric).filter_by(user_id=g.user.id)
+    records = []
+    for m in metrics:
+        record = db.session.query(Record).filter_by(metric_id=m.id)
+        records.append([m.id, record])
+
     return render_template('home.html', title='Home', user=g.user,
-                           logged_in=True, metrics=metrics)
+                           logged_in=True, metrics=metrics, records=records)
 
 
 @app.route('/add_metric', methods=['GET', 'POST'])

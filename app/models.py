@@ -5,6 +5,8 @@ from sqlalchemy.ext.hybrid import hybrid_property
 
 class User(db.Model):
 
+    __tablename__ = 'user'
+
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), index=True, unique=True, nullable=False)
     _password = db.Column(db.String(128))
@@ -36,10 +38,12 @@ class User(db.Model):
         return '<User %r>' % (self.email)
 
 
-
 class Metric(db.Model):
+
+    __tablename__ = 'metric'
+
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('User.id'), index=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), index=True)
     name = db.Column(db.String(64))
     is_bool = db.Column(db.Boolean)
     max_val = db.Column(db.Integer)
@@ -51,8 +55,11 @@ class Metric(db.Model):
 
 
 class Record(db.Model):
+
+    __tablename__ = 'record'
+
     id = db.Column(db.Integer, primary_key=True)
-    metric_id = db.Column(db.Integer, db.ForeignKey('Metric.id'), index=True)
+    metric_id = db.Column(db.Integer, db.ForeignKey('metric.id'), index=True)
     value = db.Column(db.Integer)
     date = db.Column(db.DateTime)
 

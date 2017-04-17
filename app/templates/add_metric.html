@@ -1,0 +1,30 @@
+<!-- extend from header -->
+{% extends 'header.html' %}
+{% block content %}
+  <div class='container'>
+    <h3>Add Metric</h3>
+    <div class='jumbotron' background-position='center' padding-right='100px' padding-left=100px>
+      <form class='form-signin' action='' method='post' name='login'>
+        {{ form.hidden_tag() }}
+        {{ form.csrf_token }}
+        Title: {{ form.name(class_='form-control', placeholder='Metric Title', autofocus=True) }}
+        {% for error in form.name.errors %}
+          <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+        {{ form.is_bool }} Yes/No Metric
+        <br>
+        <label for="name" class="sr-only">Max Value:</label>
+        Maximum Value: {{ form.max_val(class_='form-control', placeholder='10') }}
+        {% for error in form.max_val.errors %}
+          <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+        <label for="name" class="sr-only">Min Value:</label>
+        Minimum Value: {{ form.min_val(class_='form-control', placeholder='1') }}
+        {% for error in form.min_val.errors %}
+          <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+        <input type='submit' class='btn btn-lg btn-primary btn-block' value='Create'>
+      </form>
+    </div>
+  </div>
+{% endblock %}

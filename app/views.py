@@ -23,7 +23,7 @@ def index():
     if g.user is not None and g.user.is_authenticated:
         return redirect(url_for('home'))
     return render_template('index.html', title='Home', user=g.user,
-                           metrics=metrics, logged_in=g.user.is_authenticated)
+                           logged_in=g.user.is_authenticated)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -70,7 +70,7 @@ def register():
 @login_required
 def home():
     # get metrics for user
-    metrics = db.session.query(Metric).filter_by(user_id = g.user.id)
+    metrics = db.session.query(Metric).filter_by(user_id=g.user.id)
     return render_template('home.html', title='Home', user=g.user,
                            logged_in=True, metrics=metrics)
 

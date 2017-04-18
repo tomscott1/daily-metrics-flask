@@ -71,13 +71,8 @@ def register():
 def home():
     # get metrics for user
     metrics = db.session.query(Metric).filter_by(user_id=g.user.id)
-    records = []
-    for m in metrics:
-        record = db.session.query(Record).filter_by(metric_id=m.id)
-        records.append([m.id, record])
-
     return render_template('home.html', title='Home', user=g.user,
-                           logged_in=True, metrics=metrics, records=records)
+                           logged_in=True, metrics=metrics)
 
 
 @app.route('/add_metric', methods=['GET', 'POST'])
@@ -95,6 +90,16 @@ def add_metric():
         return redirect(request.args.get('next') or url_for('home'))
     return render_template('add_metric.html', title='Add Metric',
                            logged_in=True, user=g.user, form=form)
+
+
+@app.route('/view_records/<metric_id>', methods=['GET'])
+@login_required
+def view_records(metric_id):
+    records = db.session.query(Record).filter_by(metric_id=metric_id)
+    metric = db.session.query(Metric).filter_by(id=metric_id)
+    return render_template('view_records.html', title='View Records',
+                           logged_in=True, user=g.user, records=records,
+                           metric=metric)
 
 
 @app.route('/logout', methods=['GET'])
